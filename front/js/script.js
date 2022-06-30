@@ -1,15 +1,14 @@
 export default class Articles{
     
         // Récupération des articles de l'API
-    static async getArticles() {      
+    async getArticles() {      
         let articlesRes = await fetch("http://localhost:3000/api/products/");
         return articlesRes.json();
     }
 
         // Répartition des données de l'API dans le DOM
-    static async AddOnPage() {
-        let articlesRes = Articles.getArticles.articlesRes; 
-        await Articles.getArticles(articlesRes)
+    async AddOnPage() {
+        await this.getArticles()
         .then(function (resultatAPI){
 
             console.log(resultatAPI);
@@ -50,7 +49,8 @@ export default class Articles{
     }
 }
 function init(){
-    Articles.AddOnPage();
+    let article = new Articles;
+    article.AddOnPage();
 }init();
 
 

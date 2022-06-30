@@ -1,8 +1,8 @@
-import Articles from "./script.js";
 class Produit{
     
     // Récupération des articles de l'API    
-    static getArticle() {
+    getArticle() {
+        let zis = this;
         this.str = window.location.href;
         this.url = new URL(this.str);
         this.idProduct = this.url.searchParams.get("id");
@@ -23,8 +23,8 @@ class Produit{
             article = await resultatAPI;
             console.table(article);
             if (article){
-                Produit.generatePost(article);
-                Produit.addToCart(article);
+                zis.generatePost(article);
+                zis.addToCart(article);
             }
         })
         .catch((error) => {
@@ -32,7 +32,7 @@ class Produit{
         })
     }
         
-    static generatePost(article){
+    generatePost(article){
         // Insertion de l'image
         let productImg = document.createElement("img");
         document.querySelector(".item__img").appendChild(productImg);
@@ -63,7 +63,7 @@ class Produit{
     }
 
     //Gestion du panier
-    static addToCart(article) {
+    addToCart(article) {
         const btn_envoyerPanier = document.querySelector("#addToCart");
 
         //Ecouter le panier avec 2 conditions couleur non nulle et quantité entre 1 et 100
@@ -132,6 +132,7 @@ class Produit{
 }
 
 function init(){
-    Produit.getArticle();
+    let produit = new Produit;
+    produit.getArticle();
 }init();
 
