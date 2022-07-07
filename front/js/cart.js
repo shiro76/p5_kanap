@@ -7,7 +7,9 @@ class Panier {
         this.positionEmptyCart = document.querySelector("#cart__items");
     }
 
+    //insertion des élements du panier
     getCart() {
+        //si le panier est vide
         if (produitLocalStorage === null || produitLocalStorage == 0) {
             const emptyCart = `<p>Votre panier est vide</p>`;
             this.positionEmptyCart.innerHTML = emptyCart;
@@ -96,6 +98,7 @@ class Panier {
         }
     }
 
+    //total de produits et prix
     getTotals() {
 
         // Récupération du total des quantités
@@ -123,6 +126,7 @@ class Panier {
         console.log(totalPrice);
     }
 
+    //modifier la quantité
     modifyQtt() {
         let qttModif = document.querySelectorAll(".itemQuantity");
 
@@ -347,39 +351,6 @@ class Formulaire {
             }
         })
     }
-
-    // static noPressEnterKeyboard(){
-    //     (function(n) {
-    //         var f = function(e) {
-    //             var c = e.which || e.keyCode;
-    //             if (c == 13) {
-    //             e.preventDefault();
-    //             return false;
-    //             }
-    //         };
-    //         window.noPressEnter = function(a, b) {
-    //             b = (typeof b === 'boolean') ? b : true;
-    //             if (b) {
-    //             a.addEventListener(n, f);
-    //             } else {
-    //             a.removeEventListener(n, f);
-    //             }
-    //             return a;
-    //         };
-    //     })('keydown');
-
-    //     let inputFieldEmail = document.getElementById('email')
-    //     let inputFielLastName = document.getElementById('lastName')
-    //     let inputFieldFirstName = document.getElementById('firstName')
-    //     let inputFieldCity = document.getElementById('city')
-    //     let inputFieldAddress = document.getElementById('address')
-
-    //     noPressEnter(inputFieldEmail)
-    //     noPressEnter(inputFielLastName);
-    //     noPressEnter(inputFieldFirstName);
-    //     noPressEnter(inputFieldCity);
-    //     noPressEnter(inputFieldAddress);
-    // }
 }
 
 function initPanier() {
@@ -394,5 +365,4 @@ function initFormulaire() {
     let form = new Formulaire();
     form.getForm();
     form.postForm();
-    // form.noPressEnterKeyboard();
 } initFormulaire();
