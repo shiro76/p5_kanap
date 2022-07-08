@@ -1,5 +1,9 @@
-produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
+import {getArticles} from "./fonction.js";
 
+let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
+
+let articlesBdd = await getArticles();
+console.log('Article', articlesBdd)
 class Panier {
     constructor() {
         //Initialisation du local storage
@@ -8,7 +12,7 @@ class Panier {
     }
 
     //insertion des élements du panier
-    getCart() {
+    displayCart() {
         //si le panier est vide
         if (produitLocalStorage === null || produitLocalStorage == 0) {
             const emptyCart = `<p>Votre panier est vide</p>`;
@@ -99,7 +103,7 @@ class Panier {
     }
 
     //total de produits et prix
-    getTotals() {
+    updateTotals() {
 
         // Récupération du total des quantités
         var elemsQtt = document.getElementsByClassName('itemQuantity');
@@ -116,9 +120,21 @@ class Panier {
 
         // Récupération du prix total
         let totalPrice = 0;
+        
 
         for (var i = 0; i < myLength; ++i) {
-            totalPrice += (elemsQtt[i].valueAsNumber * produitLocalStorage[i].prixProduit);
+            let prix = 0;
+            let idProduit = produitLocalStorage[i].idProduit
+            console.log('id',idProduit );
+
+            let  article = articlesBdd.find(function(art){
+                console.log(art)
+                return  art._id === idProduit;
+            })
+            console.log('test',article);
+            prix = article.price;
+            totalPrice += (elemsQtt[i].valueAsNumber * prix);
+            // totalPrice += (elemsQtt[i].valueAsNumber * produitLocalStorage[i].prixProduit);
         }
 
         let productTotalPrice = document.getElementById('totalPrice');
@@ -127,7 +143,7 @@ class Panier {
     }
 
     //modifier la quantité
-    modifyQtt() {
+    updateQtt() {
         let qttModif = document.querySelectorAll(".itemQuantity");
 
         for (let k = 0; k < qttModif.length; k++) {
@@ -173,10 +189,10 @@ class Panier {
         }
     }
 }
-hasError = false;
+let hasError = false;
 
 class Formulaire {
-    getForm() {
+    initAndDisplayForm () {
         // Ajout des Regex
         let form = document.querySelector(".cart__order__form");
 
@@ -342,7 +358,6 @@ class Formulaire {
                             document.location.href = "confirmation.html";
                         }
                     }; validationForm();
-
                 })
 
                 .catch((err) => {
@@ -355,14 +370,14 @@ class Formulaire {
 
 function initPanier() {
     let panier = new Panier;
-    panier.getCart();
-    panier.getTotals();
-    panier.modifyQtt();
+    panier.displayCart();
+    panier.updateTotals();
+    panier.updateQtt();
     panier.deleteProduct();
 } initPanier();
 
 function initFormulaire() {
     let form = new Formulaire();
-    form.getForm();
+    form.initAndDisplayForm();
     form.postForm();
 } initFormulaire();

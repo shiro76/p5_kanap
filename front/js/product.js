@@ -1,6 +1,6 @@
-class Produit{
-    
+export default class Produit{
     // Récupération des articles de l'API    
+
     getArticle() {
         let zis = this;
         this.str = window.location.href;
