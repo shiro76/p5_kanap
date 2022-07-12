@@ -1,4 +1,4 @@
-import {getArticles} from "./fonction.js";
+import {getArticles} from "./getArticles.js";
 
 let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
 
@@ -316,6 +316,11 @@ class Formulaire {
             let inputAdress = document.getElementById('address');
             let inputCity = document.getElementById('city');
             let inputMail = document.getElementById('email');
+
+            //si le panier est vide 
+            if (produitLocalStorage === null || produitLocalStorage == 0) {
+                alert('votre panier est vide')
+            }
 
             //Construction d'un array depuis le local storage
             let idProducts = [];

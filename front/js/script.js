@@ -1,14 +1,9 @@
-export default class Articles{
-    
-        // Récupération des articles de l'API
-    async getArticles() {      
-        let articlesRes = await fetch("http://localhost:3000/api/products/");
-        return articlesRes.json();
-    }
+import {getArticles} from "./getArticles.js";
+class Articles{
 
-        // Répartition des données de l'API dans le DOM
+    // Répartition des données de l'API dans le DOM
     async AddOnPage() {
-        await this.getArticles()
+        await getArticles()
         .then(function (resultatAPI){
 
             console.log(resultatAPI);
